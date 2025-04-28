@@ -152,14 +152,16 @@ end
 workspace.Games.DescendantAdded:Connect(function(Descendant:Instance)
 	if Descendant.Name == "Football" then
 		local DescendantConnection = nil -- Safety / Punts
+		local CurrentState = MatchState.Value -- Make sure its a different state.
+		
 		AttemptToCatch(Descendant)
 		
 		DescendantConnection = Descendant.Changed:Connect(function(Property)
-			if Property == "CFrame" then
+			if Property == "CFrame" and CurrentState ~= MatchState.Value then
 				AttemptToCatch(Descendant)
 			end
 			
-			if not Descendant.Parent then
+			if Property == "Parent" then
 				DescendantConnection:Disconnect()
 			end
 		end)
