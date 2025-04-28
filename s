@@ -80,13 +80,15 @@ function FindNewServer()
 end
 
 function TeleportToEndzones()
+	HumanoidRootPart.Anchored = false
+
 	if (IgnoreWhitelist or WasInHand) and (not IgnoreBlacklist or not table.find(Blacklist, MatchState.Value)) then
 		local Endzones = workspace.Games[MatchID]:FindFirstChild("Local"):FindFirstChild("Endzones")
 
 		for _, Objects in Endzones:GetChildren() do
-			wait(0.2)
 			HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
 			HumanoidRootPart.CFrame = CFrame.new(Objects.Position + Vector3.new(0, 2, 0))
+			wait(0.1)
 		end
 	end
 
@@ -130,7 +132,7 @@ function AttemptToCatch(Football)
 		if Football.Parent == Character then
 			task.spawn(TeleportToEndzones)
 			WasInHand = false
-			HumanoidRootPart.Anchored = false
+			
 			Connection:Disconnect()
 		elseif Football.Parent == nil then
 			Connection:Disconnect()
@@ -147,7 +149,7 @@ end
 
 -- [[ Connections ]] --
 
-workspace.Games.DescendantAdded:Connect(function(Descendant)
+workspace.DescendantAdded:Connect(function(Descendant)
 	if Descendant.Name == "Football" then
 		AttemptToCatch(Descendant)
 	end
