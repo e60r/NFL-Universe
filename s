@@ -114,7 +114,7 @@ function AttemptToCatch(Football)
 			return
 		end
 
-		Velocity = (Football.Position - LastPosition) / DeltaTime
+		Velocity = (Football.Position - LastPosition) / Time
 		LastPosition = Football.Position
 
 		local Speed = Velocity.Magnitude
