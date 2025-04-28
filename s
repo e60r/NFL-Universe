@@ -114,7 +114,7 @@ function AttemptToCatch(Football)
 			return
 		end
 
-		Velocity = (Football.Position - LastPosition) / Time
+		Velocity = (Football.Position - LastPosition) / DeltaTime
 		LastPosition = Football.Position
 
 		local Speed = Velocity.Magnitude
@@ -124,9 +124,9 @@ function AttemptToCatch(Football)
 		local HeightAdjustment = math.clamp((Football.Position.Y - HumanoidRootPart.Position.Y) / 50, -0.1, 0.1)
 		PredictionTime = PredictionTime + HeightAdjustment
 
-		local predictedPosition = Football.Position + (Velocity * PredictionTime)
-		HumanoidRootPart.CFrame = CFrame.new(predictedPosition)
-		
+		local PredictedPosition = Football.Position + (Velocity * PredictionTime)
+
+		HumanoidRootPart.CFrame = CFrame.new(PredictedPosition)
 		MatchRemote:FireServer("Mechanics", "Catching", true)
 
 		if Football.Parent == Character then
@@ -151,20 +151,7 @@ end
 
 workspace.Games.DescendantAdded:Connect(function(Descendant:Instance)
 	if Descendant.Name == "Football" then
-		local DescendantConnection = nil -- Safety / Punts
-		local CurrentState = MatchState.Value -- Make sure its a different state.
-		
 		AttemptToCatch(Descendant)
-		
-		DescendantConnection = Descendant.Changed:Connect(function(Property)
-			if Property == "CFrame" and CurrentState ~= MatchState.Value then
-				AttemptToCatch(Descendant)
-			end
-			
-			if Property == "Parent" then
-				DescendantConnection:Disconnect()
-			end
-		end)
 	end
 end)
 
