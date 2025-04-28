@@ -149,9 +149,20 @@ end
 
 -- [[ Connections ]] --
 
-workspace.DescendantAdded:Connect(function(Descendant)
+workspace.Games.DescendantAdded:Connect(function(Descendant:Instance)
 	if Descendant.Name == "Football" then
+		local DescendantConnection = nil -- Safety / Punts
 		AttemptToCatch(Descendant)
+		
+		DescendantConnection = Descendant.Changed:Connect(function(Property)
+			if Property == "CFrame" then
+				AttemptToCatch(Descendant)
+			end
+			
+			if not Descendant.Parent then
+				DescendantConnection:Disconnect()
+			end
+		end)
 	end
 end)
 
