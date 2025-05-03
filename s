@@ -85,7 +85,7 @@ function TeleportToEndzones()
 
 		for _, Zone in ipairs(Endzones:GetChildren()) do
 			HumanoidRootPart.CFrame = CFrame.new(Zone.Position + Vector3.new(0, 3, 0))
-   			wait(1)
+   			wait(0.5)
 		end
 	end
 
