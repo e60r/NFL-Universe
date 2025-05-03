@@ -83,8 +83,8 @@ function TeleportToEndzones()
 	if (IgnoreWhitelist or WasInHand) and (not IgnoreBlacklist or not table.find(Blacklist, MatchState.Value)) then
 		local Endzones = workspace.Games[MatchID]:FindFirstChild("Local"):FindFirstChild("Endzones")
 
-		for _, Objects in Endzones:GetChildren() do
-			HumanoidRootPart.CFrame = CFrame.new(Objects.Position + Vector3.new(0, 3, 0))
+		for _, Zone in ipairs(Endzones:GetChildren()) do
+			HumanoidRootPart.CFrame = CFrame.new(Zone.Position + Vector3.new(0, 3, 0))
 			task.wait(0.1)
 		end
 	end
@@ -162,7 +162,6 @@ workspace.DescendantRemoving:Connect(function(Descendant)
 	end
 	
 	if #Players:GetPlayers() <= 5 then
-		FindNewServer()
 	end
 end)
 
