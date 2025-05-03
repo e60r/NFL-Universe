@@ -83,9 +83,9 @@ function TeleportToEndzones()
 	if (IgnoreWhitelist or WasInHand) and (not IgnoreBlacklist or not table.find(Blacklist, MatchState.Value)) then
 		local Endzones = workspace.Games[MatchID]:FindFirstChild("Local"):FindFirstChild("Endzones")
 
-		for _, Zone in ipairs(Endzones:GetChildren()) do
+		for _, Zone in pairs(Endzones:GetChildren()) do
 			HumanoidRootPart.CFrame = CFrame.new(Zone.Position + Vector3.new(0, 3, 0))
-   			wait(0.5)
+   			wait(0.3)
 		end
 	end
 
