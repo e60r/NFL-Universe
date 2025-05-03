@@ -163,7 +163,6 @@ workspace.DescendantRemoving:Connect(function(Descendant)
 	end
 
 	if #Players:GetPlayers() <= 2 then
-	    FindNewServer()
     end
 end)
 
