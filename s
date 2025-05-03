@@ -84,8 +84,9 @@ function TeleportToEndzones()
 		local Endzones = workspace.Games[MatchID]:FindFirstChild("Local"):FindFirstChild("Endzones")
 
 		for _, Zone in pairs(Endzones:GetChildren()) do
+			if Zone.Name ~= LocalPlayer:FindFirstChild("Replicated").TeamID.Value then
 			HumanoidRootPart.CFrame = CFrame.new(Zone.Position + Vector3.new(0, 3, 0))
-   			wait(0.3)
+			end
 		end
 	end
 
@@ -160,7 +161,7 @@ workspace.DescendantRemoving:Connect(function(Descendant)
 	if IsModelAncestor and table.find(Whitelist, IsModelAncestor.Name) then
 		WasInHand = true
 	end
-	
+
 	if #Players:GetPlayers() <= 5 then
 	end
 end)
