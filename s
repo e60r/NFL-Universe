@@ -84,8 +84,8 @@ function TeleportToEndzones()
 		local Endzones = workspace.Games[MatchID]:FindFirstChild("Local"):FindFirstChild("Endzones")
 
 		for _, Zone in pairs(Endzones:GetChildren()) do
-			if Zone.Name ~= LocalPlayer:FindFirstChild("Replicated").TeamID.Value then
-			HumanoidRootPart.CFrame = CFrame.new(Zone.Position + Vector3.new(0, 3, 0))
+			if not (Zone.Name == LocalPlayer:FindFirstChild("Replicated").TeamID.Value) then
+				HumanoidRootPart.CFrame = CFrame.new(Zone.Position + Vector3.new(0, 3, 0))
 			end
 		end
 	end
@@ -93,7 +93,7 @@ function TeleportToEndzones()
 	if (table.find(Blacklist, MatchState.Value)) and not IgnoreBlacklist then
 		local Center = workspace.Games[MatchID]:FindFirstChild("Replicated").Center
 		HumanoidRootPart.CFrame = CFrame.new(Center.Position + Vector3.new(0, 3, 0))
-		MatchRemote:FireServer("Mechanics", "QBSlide", { ["VecCoordinate"] = Vector3.new(Character.LowerTorso.Position) })
+		MatchRemote:FireServer("Mechanics", "QBKneel", { ["VecCoordinate"] = vector.create(HumanoidRootPart.Position.X, HumanoidRootPart.Position.Y, HumanoidRootPart.Position.Z) })
 	end
 
 	HumanoidRootPart.Anchored = false
@@ -162,8 +162,8 @@ workspace.DescendantRemoving:Connect(function(Descendant)
 		WasInHand = true
 	end
 
-	if #Players:GetPlayers() <= 2 then
-    end
+	if #Players:GetPlayers() <= 5 then
+	end
 end)
 
 TeleportService.TeleportInitFailed:Connect(function(Player)
