@@ -162,8 +162,9 @@ workspace.DescendantRemoving:Connect(function(Descendant)
 		WasInHand = true
 	end
 
-	if #Players:GetPlayers() <= 5 then
-	end
+	if #Players:GetPlayers() <= 2 then
+	    FindNewServer()
+    end
 end)
 
 TeleportService.TeleportInitFailed:Connect(function(Player)
