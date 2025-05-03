@@ -10,6 +10,7 @@ local EventArguments = { "TeleportToPlaceInstance" }
 local GameIds = { Gameplay = 4940687511 }
 
 -- [[ Information ]] --
+local TeamEndzones = { ["AwayTeam"] = "NorthEndzone" , ["HomeTeam"] = "SouthEndzone" }
 local ServerType = "Gameplay"
 local SortType = "quarter"
 
@@ -82,12 +83,9 @@ function TeleportToEndzones()
 
 	if (IgnoreWhitelist or WasInHand) and (not IgnoreBlacklist or not table.find(Blacklist, MatchState.Value)) then
 		local Endzones = workspace.Games[MatchID]:FindFirstChild("Local"):FindFirstChild("Endzones")
-
-		for _, Zone in pairs(Endzones:GetChildren()) do
-			if not (Zone.Name == LocalPlayer:FindFirstChild("Replicated").TeamID.Value) then
-				HumanoidRootPart.CFrame = CFrame.new(Zone.Position + Vector3.new(0, 3, 0))
-			end
-		end
+		local Zone = Endzones:FindFirstChild(TeamEndzones[LocalPlayer:FindFirstChild("Replicated").TeamID.Value])
+		
+		HumanoidRootPart.CFrame = CFrame.new(Zone.Position + Vector3.new(0, 3, 0))
 	end
 
 	if (table.find(Blacklist, MatchState.Value)) and not IgnoreBlacklist then
