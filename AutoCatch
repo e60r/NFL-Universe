@@ -18,8 +18,8 @@ local SortType = "quarter"
 local Whitelist = { "ymqm" }
 local IgnoreWhitelist = true
 
-local Blacklist = {"Kickoff", "Onside"} 
-local IgnoreBlacklist = true
+local Blacklist = { "Kickoff", "Onside" } --  "Kickoff", "Onside" 
+local IgnoreBlacklist = false
 
 -- [[ Objects ]] --
 local RemoteEvent = ReplicatedStorage:WaitForChild("ReEvent")
@@ -84,7 +84,7 @@ function TeleportToEndzones()
 	if (IgnoreWhitelist or WasInHand) and (not IgnoreBlacklist or not table.find(Blacklist, MatchState.Value)) then
 		local Endzones = workspace.Games[MatchID]:FindFirstChild("Local"):FindFirstChild("Endzones")
 		local Zone = Endzones:FindFirstChild(TeamEndzones[LocalPlayer:FindFirstChild("Replicated").TeamID.Value])
-		
+
 		HumanoidRootPart.CFrame = CFrame.new(Zone.Position + Vector3.new(0, 3, 0))
 	end
 
@@ -156,13 +156,10 @@ workspace.Games.DescendantAdded:Connect(function(Descendant)
 	end
 end)
 
-workspace.DescendantRemoving:Connect(function(Descendant)
-	local IsModelAncestor = Descendant:FindFirstAncestorOfClass("Model")
-	if IsModelAncestor and table.find(Whitelist, IsModelAncestor.Name) then
+workspace.DescendantRemoving:Connect(function(descendant)
+	local ancestor = descendant:FindFirstAncestorWhichIsA("Model")
+	if ancestor and Players:GetPlayerFromCharacter(ancestor) and table.find(Whitelist, ancestor.Name) then
 		WasInHand = true
-	end
-
-	if #Players:GetPlayers() <= 5 then
 	end
 end)
 
