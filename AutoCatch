@@ -16,7 +16,7 @@ local SortType = "quarter"
 
 -- [[ Whitelist / Blacklist ]] --
 local Whitelist = { "ymqm" }
-local IgnoreWhitelist = true
+local IgnoreWhitelist = false\
 
 local Blacklist = {  } --  "Kickoff", "Onside" 
 local IgnoreBlacklist = true
