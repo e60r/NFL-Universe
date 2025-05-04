@@ -91,6 +91,8 @@ function TeleportToEndzones()
 	if (table.find(Blacklist, MatchState.Value)) and not IgnoreBlacklist then
 		local Center = workspace.Games[MatchID]:FindFirstChild("Local").Center
 		HumanoidRootPart.CFrame = CFrame.new(Center.Position + Vector3.new(0, 3, 0))
+
+		wait(0.5)
 		MatchRemote:FireServer("Mechanics", "QBKneel", { ["VecCoordinate"] = vector.create(HumanoidRootPart.Position.X, HumanoidRootPart.Position.Y, HumanoidRootPart.Position.Z) })
 	end
 
