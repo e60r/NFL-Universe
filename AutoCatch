@@ -19,7 +19,7 @@ local Whitelist = { "ymqm" }
 local IgnoreWhitelist = true
 
 local Blacklist = {"Kickoff", "Onside"} 
-local IgnoreBlacklist = false
+local IgnoreBlacklist = true
 
 -- [[ Objects ]] --
 local RemoteEvent = ReplicatedStorage:WaitForChild("ReEvent")
