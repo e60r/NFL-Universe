@@ -18,8 +18,8 @@ local SortType = "quarter"
 local Whitelist = { "ymqm" }
 local IgnoreWhitelist = false
 
-local Blacklist = {  } --  "Kickoff", "Onside" 
-local IgnoreBlacklist = true
+local Blacklist = {"Kickoff", "Onside"} 
+local IgnoreBlacklist = false
 
 -- [[ Objects ]] --
 local RemoteEvent = ReplicatedStorage:WaitForChild("ReEvent")
@@ -89,7 +89,7 @@ function TeleportToEndzones()
 	end
 
 	if (table.find(Blacklist, MatchState.Value)) and not IgnoreBlacklist then
-		local Center = workspace.Games[MatchID]:FindFirstChild("Replicated").Center
+		local Center = workspace.Games[MatchID]:FindFirstChild("Local").Center
 		HumanoidRootPart.CFrame = CFrame.new(Center.Position + Vector3.new(0, 3, 0))
 		MatchRemote:FireServer("Mechanics", "QBKneel", { ["VecCoordinate"] = vector.create(HumanoidRootPart.Position.X, HumanoidRootPart.Position.Y, HumanoidRootPart.Position.Z) })
 	end
