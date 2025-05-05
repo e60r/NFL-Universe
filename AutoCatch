@@ -18,8 +18,8 @@ local SortType = "quarter"
 local Whitelist = { "ymqm" }
 local IgnoreWhitelist = true
 
-local Blacklist = { "Kickoff", "Onside" } --  "Kickoff", "Onside" 
-local IgnoreBlacklist = false
+local Blacklist = { } --  "Kickoff", "Onside" 
+local IgnoreBlacklist = true
 
 -- [[ Objects ]] --
 local RemoteEvent = ReplicatedStorage:WaitForChild("ReEvent")
